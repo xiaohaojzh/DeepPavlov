@@ -1,0 +1,43 @@
+{
+  "chainer": {
+    "in": ["text"],
+    "pipe": [
+      {
+        "in": ["text"],
+        "out": ["response"],
+        "class": "deeppavlov.core.agent:Agent",
+        "skills": [
+          {
+            "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
+            "responses": ["Доброго времени суток!"],
+            "patterns": ["привет", "здравствуй", "добрый"]
+
+          },
+          {
+            "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
+            "responses": ["Вопрос типа \"сколько что\""],
+            "patterns": ["что ", "товар", "продукт"]
+          },
+          {
+            "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
+            "responses": ["Вопрос типа \"сколько куда\""],
+            "patterns": ["в ", " куда", "стран", "кто ", " направлени"]
+          },
+          {
+            "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
+            "responses": ["Вопрос типа \"сколько откуда\""],
+            "patterns": ["из как", "регионов", "округ ", "топ-"]
+          },
+          {
+            "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
+            "responses": ["Попробуйте переформулировать свой вопрос"]
+          }
+        ],
+        "skills_selector": {
+          "class": "deeppavlov.core.agent:HighestConfidenceSelector"
+        }
+      }
+    ],
+    "out": ["response"]
+  }
+}
