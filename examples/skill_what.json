@@ -1,0 +1,38 @@
+{
+  "chainer": {
+    "in": ["message", "message_history", "state"],
+    "pipe": [
+      {
+        "in": ["message"],
+        "out": ["slots_natasha"],
+        "name": "natasha_ner",
+        "classes": ["LocationExtractor", "DatesExtractor"]
+      },
+      {
+        "in": ["message"],
+        "out": ["slots_fuzzy"],
+        "name": "slotfill_raw",
+        "save_path": "../examples/infographer_slots.json",
+        "load_path": "../examples/infographer_slots.json"
+      },
+      {
+        "in": ["slots_fuzzy", "slots_natasha"],
+        "out": ["slots"],
+        "name": "slots_combiner"
+      },
+      {
+        "in": ["message", "message_history", "state"],
+        "out": ["inter_response", "confidence"],
+        "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
+        "responses": ["Вопрос типа \"сколько что\""],
+        "patterns": ["что ", "товар", "продукт"]
+      },
+      {
+        "in": ["slots", "inter_response"],
+        "out": ["response"],
+        "name": "ner_string_generator"
+      }
+    ],
+    "out": ["response", "confidence", "state"]
+  }
+}

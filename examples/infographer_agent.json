@@ -14,19 +14,13 @@
 
           },
           {
-            "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
-            "responses": ["Вопрос типа \"сколько что\""],
-            "patterns": ["что ", "товар", "продукт"]
+            "config_path": "../examples/skill_to.json"
           },
           {
-            "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
-            "responses": ["Вопрос типа \"сколько куда\""],
-            "patterns": ["в ", " куда", "стран", "кто ", " направлени"]
+            "config_path": "../examples/skill_from.json"
           },
           {
-            "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
-            "responses": ["Вопрос типа \"сколько откуда\""],
-            "patterns": ["из как", "регионов", "округ ", "топ-"]
+            "config_path": "../examples/skill_what.json"
           },
           {
             "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",

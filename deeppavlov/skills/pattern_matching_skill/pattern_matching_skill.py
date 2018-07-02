@@ -5,7 +5,7 @@ from deeppavlov.core.models.component import Component
 
 
 class PatternMatchingSkill(Component):
-    def __init__(self, responses, patterns=None, regex=False, ignore_case=True):
+    def __init__(self, responses, patterns=None, regex=False, ignore_case=True, *args, **kwargs):
         if isinstance(responses, str):
             responses = [responses]
         self.responses = responses

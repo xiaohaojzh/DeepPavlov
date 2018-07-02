@@ -54,3 +54,27 @@ class NatashaNer(Component):
                     v = dict(v.fact.as_json)
                 result[extractor.__class__.__name__.lower().replace("extractor", "")].append(v)
         return result
+
+
+@register('ner_string_generator')
+class NERStringGenerator(Component):
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def __call__(self, slots, inter_responses, *args, **kwargs):
+        if isinstance(slots, (list, tuple)) and isinstance(inter_responses, (list, tuple)):
+            return [f'{inter_response}: {slot}' for slot, inter_response in zip(slots, inter_responses)]
+        else:
+            return f'{inter_responses}: {slots}'
+
+
+@register('slots_combiner')
+class SlotCombiner(Component):
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def __call__(self, slots1, slots2, *args, **kwargs):
+        if isinstance(slots1, (list, tuple)) and isinstance(slots2, (list, tuple)):
+            return [{**s1, **s2} for s1, s2 in zip(slots1, slots2)]
+        else:
+            return {**slots1, **slots2}
