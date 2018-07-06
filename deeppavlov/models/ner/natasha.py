@@ -69,7 +69,7 @@ class NERStringGenerator(Component):
 
 
 @register('slots_combiner')
-class SlotCombiner(Component):
+class SlotsCombiner(Component):
     def __init__(self, *args, **kwargs):
         pass
 
