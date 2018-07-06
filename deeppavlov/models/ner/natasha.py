@@ -24,6 +24,8 @@ from deeppavlov.core.common.registry import register
 from deeppavlov.core.common.log import get_logger
 
 import natasha
+import json
+
 
 logger = get_logger(__name__)
 
@@ -58,13 +60,23 @@ class NatashaNer(Component):
 
 @register('ner_string_generator')
 class NERStringGenerator(Component):
-    def __init__(self, *args, **kwargs):
-        pass
+    def __init__(self, history_path, *args, **kwargs):
+        self.history_path = history_path
 
     def __call__(self, slots, inter_responses, *args, **kwargs):
+
         if isinstance(slots, (list, tuple)) and isinstance(inter_responses, (list, tuple)):
-            return [f'{inter_response}: {slot}' for slot, inter_response in zip(slots, inter_responses)]
+            result = []
+            with open(self.history_path, 'a') as f:
+                for slot, inter_response in zip(slots, inter_responses):
+                    f.write(json.dumps({**{"intent": inter_response}, **slot}, ensure_ascii=False))
+                    f.write('\n')
+                result.append(f'{inter_response}: {slot}')
+            return result
         else:
+            with open(self.history_path, 'a') as f:
+                f.write(json.dumps({**{"intent": inter_responses}, **slots}, ensure_ascii=False))
+                f.write('\n')
             return f'{inter_responses}: {slots}'
 
 

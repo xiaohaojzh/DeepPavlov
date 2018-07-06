@@ -30,7 +30,8 @@
       {
         "in": ["slots", "inter_response"],
         "out": ["response"],
-        "name": "ner_string_generator"
+        "name": "ner_string_generator",
+        "history_path": "examples/infographer_history.jsonl"
       }
     ],
     "out": ["response", "confidence", "state"]
