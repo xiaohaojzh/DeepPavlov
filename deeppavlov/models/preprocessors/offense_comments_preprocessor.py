@@ -39,6 +39,8 @@ class OffenseCommentsPreprocessor(Component):
         Returns:
             list of preprocessed text samples
         """
+        f = [x.lower() for x in batch]
+        
         f = [re.sub('!!+', ' !! ', x) for x in f]
         f = [re.sub('\?\?+', ' ?? ', x) for x in f]
         f = [re.sub('\?!+', ' ?! ', x) for x in f]

@@ -1,0 +1,122 @@
+{
+  "dataset_reader": {
+    "name": "basic_classification_reader",
+    "x": "comment_text",
+    "y": "labels",
+    "data_path": "toxic_challenge",
+    "train": "train_dp.csv"
+  },
+  "dataset_iterator": {
+    "name": "basic_classification_iterator",
+    "seed": 42,
+    "field_to_split": "train",
+    "split_fields": [
+      "train",
+      "valid"
+    ],
+    "split_proportions": [
+      0.9,
+      0.1
+    ]
+  },
+  "chainer": {
+    "in": [
+      "x"
+    ],
+    "in_y": [
+      "y"
+    ],
+    "pipe": [
+      {
+        "id": "classes_vocab",
+        "name": "default_vocab",
+        "fit_on": [
+          "y"
+        ],
+        "level": "token",
+        "save_path": "vocabs/toxic_challenge_classes.dict",
+        "load_path": "vocabs/toxic_challenge_classes.dict"
+      },
+      {
+        "in": [
+          "x"
+        ],
+        "out": [
+          "x_prep"
+        ],
+        "name": "offense_comments_preprocessor"
+      },
+      {
+        "id": "my_embedder",
+        "name": "fasttext",
+        "save_path": "embeddings/wordpunct_tok_reddit_comments_2017_11_300.bin",
+        "load_path": "embeddings/wordpunct_tok_reddit_comments_2017_11_300.bin",
+        "dim": 300
+      },
+      {
+        "id": "my_tokenizer",
+        "name": "nltk_tokenizer",
+        "tokenizer": "wordpunct_tokenize"
+      },
+      {
+        "in": [
+          "x_prep"
+        ],
+        "in_y": [
+          "y"
+        ],
+        "out": [
+          "y_labels",
+          "y_probas_dict"
+        ],
+        "main": true,
+        "name": "keras_classification_model",
+        "save_path": "sentiment/toxic_challenge_v0",
+        "load_path": "sentiment/toxic_challenge_v0",
+        "classes": "#classes_vocab.keys()",
+        "units_lstm_1": 128,
+        "units_lstm_2": 128,
+        "confident_threshold": 0.5,
+        "optimizer": "Adam",
+        "lear_rate": 0.001,
+        "lear_rate_decay": 1e-6,
+        "loss": "binary_crossentropy",
+        "last_layer_activation": "sigmoid",
+        "text_size": 300,
+        "coef_reg_lstm": 1e-6,
+        "coef_reg_den": 1e-6,
+        "dropout_rate": 0.2,
+        "rec_dropout_rate": 0.2,
+        "dense_size": 64,
+        "model_name": "bilstm_bilstm_model",
+        "embedder": "#my_embedder",
+        "tokenizer": "#my_tokenizer"
+      }
+    ],
+    "out": [
+      "y_labels",
+      "y_probas_dict"
+    ]
+  },
+  "train": {
+    "epochs": 100,
+    "batch_size": 128,
+    "metrics": [
+      "classification_accuracy",
+      "classification_f1",
+      "classification_roc_auc"
+    ],
+    "validation_patience": 5,
+    "val_every_n_epochs": 1,
+    "log_every_n_epochs": 1,
+    "show_examples": false,
+    "validate_best": true,
+    "test_best": false
+  },
+  "metadata": {
+    "labels": {
+      "telegram_utils": "IntentModel",
+      "server_utils": "KerasIntentModel"
+    }
+  }
+}
