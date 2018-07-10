@@ -127,7 +127,7 @@
       "http://lnsigo.mipt.ru/export/deeppavlov_data/vocabs.tar.gz",
       "http://lnsigo.mipt.ru/export/datasets/toxic_challenge_data.tar.gz",
       {
-        "url": "http://lnsigo.mipt.ru/export/deeppavlov_data/embeddings/reddit_fastText/wordpunct_tok_reddit_comments_2017_11_300.bin",
+        "url": "http://lnsigo.mipt.ru/export/embeddings/reddit_fastText/wordpunct_tok_reddit_comments_2017_11_300.bin",
         "subdir": "embeddings"
       }
     ]
