@@ -100,7 +100,7 @@
   },
   "train": {
     "epochs": 100,
-    "batch_size": 128,
+    "batch_size": 64,
     "metrics": [
       "classification_accuracy",
       "classification_f1",
