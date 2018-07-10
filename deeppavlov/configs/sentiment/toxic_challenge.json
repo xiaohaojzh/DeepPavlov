@@ -3,7 +3,7 @@
     "name": "basic_classification_reader",
     "x": "comment_text",
     "y": "labels",
-    "data_path": "toxic_challenge",
+    "data_path": "toxic_challenge_data",
     "train": "train_dp.csv"
   },
   "dataset_iterator": {
@@ -114,9 +114,22 @@
     "test_best": false
   },
   "metadata": {
+    "requirements": [
+      "../requirements/tf.txt",
+      "../requirements/fasttext.txt"
+    ],
     "labels": {
       "telegram_utils": "IntentModel",
       "server_utils": "KerasIntentModel"
-    }
+    },
+    "download": [
+      "http://lnsigo.mipt.ru/export/deeppavlov_data/sentiment.tar.gz",
+      "http://lnsigo.mipt.ru/export/deeppavlov_data/vocabs.tar.gz",
+      "http://lnsigo.mipt.ru/export/datasets/toxic_challenge_data.tar.gz",
+      {
+        "url": "http://lnsigo.mipt.ru/export/deeppavlov_data/embeddings/reddit_fastText/wordpunct_tok_reddit_comments_2017_11_300.bin",
+        "subdir": "embeddings"
+      }
+    ]
   }
 }
