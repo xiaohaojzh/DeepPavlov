@@ -14,13 +14,13 @@
 
           },
           {
-            "config_path": "../examples/skill_to.json"
-          },
-          {
             "config_path": "../examples/skill_from.json"
           },
           {
             "config_path": "../examples/skill_what.json"
+          },
+          {
+            "config_path": "../examples/skill_to.json"
           },
           {
             "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",

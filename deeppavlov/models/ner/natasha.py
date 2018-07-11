@@ -63,19 +63,21 @@ class NERStringGenerator(Component):
     def __init__(self, history_path, *args, **kwargs):
         self.history_path = history_path
 
-    def __call__(self, slots, inter_responses, *args, **kwargs):
+    def __call__(self, messages, slots, inter_responses, *args, **kwargs):
 
-        if isinstance(slots, (list, tuple)) and isinstance(inter_responses, (list, tuple)):
+        if isinstance(messages, (list, tuple))\
+                and isinstance(slots, (list, tuple))\
+                and isinstance(inter_responses, (list, tuple)):
             result = []
             with open(self.history_path, 'a') as f:
-                for slot, inter_response in zip(slots, inter_responses):
-                    f.write(json.dumps({**{"intent": inter_response}, **slot}, ensure_ascii=False))
+                for message, slot, inter_response in zip(messages, slots, inter_responses):
+                    f.write(json.dumps({**{"message": message, "intent": inter_response}, **slot}, ensure_ascii=False))
                     f.write('\n')
                 result.append(f'{inter_response}: {slot}')
             return result
         else:
             with open(self.history_path, 'a') as f:
-                f.write(json.dumps({**{"intent": inter_responses}, **slots}, ensure_ascii=False))
+                f.write(json.dumps({**{"message": messages, "intent": inter_responses}, **slots}, ensure_ascii=False))
                 f.write('\n')
             return f'{inter_responses}: {slots}'
 

@@ -25,10 +25,10 @@
         "out": ["inter_response", "confidence"],
         "class": "deeppavlov.skills.pattern_matching_skill:PatternMatchingSkill",
         "responses": ["Вопрос типа \"сколько откуда\""],
-        "patterns": ["из как", "регионов", "округ ", "топ-", "откуда"]
+        "patterns": ["из как", "регионов", "округ ", "топ-", "откуда", "экспортёр", "лидер", "лучши"]
       },
       {
-        "in": ["slots", "inter_response"],
+        "in": ["message", "slots", "inter_response"],
         "out": ["response"],
         "name": "ner_string_generator",
         "history_path": "examples/infographer_history.jsonl"
