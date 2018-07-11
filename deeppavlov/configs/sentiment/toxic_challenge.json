@@ -99,8 +99,8 @@
     ]
   },
   "train": {
-    "epochs": 100,
-    "batch_size": 64,
+    "epochs": 10,
+    "batch_size": 16,
     "metrics": [
       "classification_accuracy",
       "classification_f1",
@@ -108,7 +108,7 @@
     ],
     "validation_patience": 5,
     "val_every_n_epochs": 1,
-    "log_every_n_epochs": 1,
+    "log_every_n_epoches": 1,
     "show_examples": false,
     "validate_best": true,
     "test_best": false
