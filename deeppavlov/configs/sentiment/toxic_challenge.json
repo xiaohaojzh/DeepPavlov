@@ -71,8 +71,8 @@
         ],
         "main": true,
         "name": "keras_classification_model",
-        "save_path": "sentiment/toxic_challenge_v0",
-        "load_path": "sentiment/toxic_challenge_v0",
+        "save_path": "sentiment/toxic_challenge_v1",
+        "load_path": "sentiment/toxic_challenge_v1",
         "classes": "#classes_vocab.keys()",
         "units_lstm_1": 128,
         "units_lstm_2": 128,
@@ -100,11 +100,12 @@
   },
   "train": {
     "epochs": 10,
-    "batch_size": 16,
+    "batch_size": 128,
     "metrics": [
       "classification_accuracy",
       "classification_f1",
-      "classification_roc_auc"
+      "classification_roc_auc",
+      "classification_log_loss"
     ],
     "validation_patience": 5,
     "val_every_n_epochs": 1,
