@@ -46,11 +46,12 @@ class GoalOrientedBot(NNModel):
                  use_action_mask=False,
                  debug=False,
                  save_path=None,
+                 load_path=None,
                  word_vocab=None,
                  vocabs=None,
                  **kwargs):
 
-        super().__init__(save_path=save_path, mode=kwargs['mode'])
+        super().__init__(save_path=save_path, load_path=load_path, mode=kwargs['mode'])
 
         self.tokenizer = tokenizer
         self.tracker = tracker
@@ -77,6 +78,8 @@ class GoalOrientedBot(NNModel):
             # intent_classifier returns y_labels, y_probs
             self.intents = list(self.intent_classifier(["hi"])[1][0].keys())
 
+        network_parameters['load_path'] = load_path
+        network_parameters['save_path'] = save_path
         self.network = self._init_network(network_parameters)
 
         self.reset()
